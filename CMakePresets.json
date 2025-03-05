@@ -12,12 +12,6 @@
 			"hidden": true,
 			"generator": "Visual Studio 17 2022",
 			"binaryDir": "${sourceDir}/build/${presetName}",
-			"cacheVariables": {
-				"CMAKE_TOOLCHAIN_FILE": {
-					"value": "${sourceDir}/libs/vcpkg/scripts/buildsystems/vcpkg.cmake",
-					"type": "FILEPATH"
-				}
-			},
 			"condition": {
 				"type": "equals",
 				"lhs": "${hostSystemName}",
@@ -35,9 +29,7 @@
 			},
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "Debug",
-				"CMAKE_CONFIGURATION_TYPES": "Debug",
-				"VCPKG_TARGET_TRIPLET": "x64-windows",
-				"VCPKG_HOST_TRIPLET": "x64-windows"
+				"CMAKE_CONFIGURATION_TYPES": "Debug"
 			},
 			"vendor": {
 				"microsoft.com/VisualStudioSettings/CMake/1.0": {
@@ -67,9 +59,7 @@
 			"installDir": "${sourceDir}/bin",
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "RelWithDebInfo",
-				"CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
-				"VCPKG_TARGET_TRIPLET": "x64-windows-static",
-				"VCPKG_HOST_TRIPLET": "x64-windows-static"
+				"CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo"
 			}
 		},
 		{
@@ -85,9 +75,7 @@
 				"CMAKE_BUILD_TYPE": "Debug",
 				"CMAKE_CONFIGURATION_TYPES": "Debug",
 				"CMAKE_C_COMPILER": "gcc",
-				"CMAKE_CXX_COMPILER": "g++",
-				"VCPKG_TARGET_TRIPLET": "x64-linux",
-				"VCPKG_HOST_TRIPLET": "x64-linux"
+				"CMAKE_CXX_COMPILER": "g++"
 			},
 			"condition": {
 				"type": "equals",
@@ -112,9 +100,7 @@
 			"installDir": "${sourceDir}/bin",
 			"cacheVariables": {
 				"CMAKE_BUILD_TYPE": "RelWithDebInfo",
-				"CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo",
-				"VCPKG_TARGET_TRIPLET": "x64-linux-static",
-				"VCPKG_HOST_TRIPLET": "x64-linux-static"
+				"CMAKE_CONFIGURATION_TYPES": "RelWithDebInfo"
 			}
 		}
 	],

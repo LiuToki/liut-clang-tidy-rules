@@ -17,8 +17,6 @@ enable_language(CXX)
 
 # Build type
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
-message(STATUS "vcpkg target: ${VCPKG_TARGET_TRIPLET}")
-message(STATUS "vcpkg host: ${VCPKG_HOST_TRIPLET}")
 
 # 出力先はbuild ディレクトリ.
 # set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/build)
@@ -34,6 +32,8 @@ message(STATUS "CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
 # ---------------------------------------------------------------------------
 # LLVM
 # ---------------------------------------------------------------------------
+set(LLVM_PROJECT_DIR "${CMAKE_SOURCE_DIR}/llvm-project")
+set(Clang_DIR "${LLVM_PROJECT_DIR}/clang/cmake")
 find_package(Clang REQUIRED CONFIG)
 
 # ---------------------------------------------------------------------------
