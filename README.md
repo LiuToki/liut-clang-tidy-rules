@@ -54,7 +54,8 @@ $ cmake --build --preset <preset_name>
 バージョンのタグでリポジトリを固定する
 
     cd llvm-project
-    git checkout  llvmorg-20.1.0
+    git fetch --tags
+    git checkout llvmorg-20.1.0
     cd ..
     git add llvm-project
     git commit -m "moved llvm-project at llvmorg-20.1.0"
