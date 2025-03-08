@@ -29,6 +29,12 @@
 - Math Checks
 
 ## Build
+### vcpkg
+```
+$ cmake --build --preset <preset_name>
+```
+
+### CMake
 - CMake >= 3.21
 ```
 $ cmake --build --preset <preset_name>
