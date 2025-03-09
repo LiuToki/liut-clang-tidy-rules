@@ -17,7 +17,6 @@ configure_file(
 # Header files
 set(H_FILES
 	version.h
-  math.h
 )
 
 # Source files
