@@ -54,6 +54,7 @@ PRIVATE
 set(LIBS
   clangTidy
   clangTidyUtils
+  LibXml2::LibXml2
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME}_Check_${LLVM_VERSION_MAJOR})

@@ -53,15 +53,16 @@ if(MSVC)
 
 		# FetchContent_MakeAvailable で configure 時に展開（展開先は clang_binary_SOURCE_DIR に設定される）
 		FetchContent_MakeAvailable(clang_binary)
-		
-		set(Clang_DIR "${clang_binary_SOURCE_DIR}/lib/cmake/clang")
-		message(STATUS "Clang_DIR is set to: ${Clang_DIR}")
 	else()
 		message(STATUS "Clang package already exists at ${CLANG_BINARY_SOURCE_DIR}")
 	endif()
+	
+	set(Clang_DIR "${CLANG_BINARY_SOURCE_DIR}/lib/cmake/clang")
+	message(STATUS "Clang_DIR is set to: ${Clang_DIR}")
 endif()
 
 find_package(Clang REQUIRED CONFIG)
+find_package(LibXml2 REQUIRED CONFIG)
 
 # ---------------------------------------------------------------------------
 # Boost

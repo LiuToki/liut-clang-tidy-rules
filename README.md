@@ -31,7 +31,8 @@
 ## Build
 ### vcpkg
 ```
-$ cmake --build --preset <preset_name>
+$ bootstrap-vcpkg.bat -disableMetrics
+$ vcpkg install libxml2:x64-windows
 ```
 
 ### CMake
