@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.24.0 FATAL_ERROR)
 
-include(FetchContent)
+# `BUILD_EXT=ON` の場合、`ext` だけをビルドし、メインプロジェクトのビルドをスキップ
+option(BUILD_EXT "Enable building external projects (LLVM)" OFF)
+
+# ext build
+if (BUILD_EXT)
+	# LLVMのインストール先.
+	set(LLVM_INSTALL_DIR "${CMAKE_BINARY_DIR}/llvm/install")
+    add_subdirectory(ext)
+	return()
+endif()
 
 # グローバルプロパティの設定（Visual Studio のフォルダ表示用）
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
@@ -36,33 +45,17 @@ message(STATUS "CMAKE_TOOLCHAIN_FILE: ${CMAKE_TOOLCHAIN_FILE}")
 # ---------------------------------------------------------------------------
 # LLVM
 # ---------------------------------------------------------------------------
-if(MSVC)
-	set(CLANG_BINARY_URL "https://github.com/llvm/llvm-project/releases/download/llvmorg-20.1.0/clang+llvm-20.1.0-aarch64-pc-windows-msvc.tar.xz")
-	set(CLANG_BINARY_HASH "SHA256=f52e40d68843ed6205858e817ed791295ef51e526037186352a1aeac4a59e51a")
+# Clang の CMakeConfig ファイルのパス
+set(Clang_DIR "${CMAKE_BINARY_DIR}/../llvm/install/lib/cmake/clang")
+message(STATUS "Clang_DIR is set to: ${Clang_DIR}")
 
-	set(CLANG_BINARY_SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/clang_binary-src")
+if(EXISTS "${Clang_DIR}/ClangConfig.cmake")
+	message(STATUS "ClangConfig.cmake found. Configuring main project.")
 
-	if(NOT EXISTS "${CLANG_BINARY_SOURCE_DIR}")
-		message(STATUS "Clang package not found. Downloading and extracting...")
-		# FetchContent を使って clang のバイナリアーカイブを取得・展開する
-		FetchContent_Declare(
-			clang_binary
-			URL ${CLANG_BINARY_URL}
-			URL_HASH ${CLANG_BINARY_HASH}
-		)
-
-		# FetchContent_MakeAvailable で configure 時に展開（展開先は clang_binary_SOURCE_DIR に設定される）
-		FetchContent_MakeAvailable(clang_binary)
-	else()
-		message(STATUS "Clang package already exists at ${CLANG_BINARY_SOURCE_DIR}")
-	endif()
-	
-	set(Clang_DIR "${CLANG_BINARY_SOURCE_DIR}/lib/cmake/clang")
-	message(STATUS "Clang_DIR is set to: ${Clang_DIR}")
+	find_package(Clang REQUIRED CONFIG)
+else()
+	message(WARNING "ClangConfig.cmake not found. Run 'cmake --build --preset llvm-build' first, then reconfigure.")
 endif()
-
-find_package(Clang REQUIRED CONFIG)
-find_package(LibXml2 REQUIRED CONFIG)
 
 # ---------------------------------------------------------------------------
 # Boost
@@ -78,7 +71,15 @@ find_package(LibXml2 REQUIRED CONFIG)
 #find_package(Boost COMPONENTS log log_setup REQUIRED)	# https://cmake.org/cmake/help/git-master/module/FindBoost.html
 
 # ---------------------------------------------------------------------------
-# math
+# ビルド設定.
 # ---------------------------------------------------------------------------
 
+if(BUILD_TESTING)
+	# テストフラグがある時はテストを有効化する
+    enable_testing()
+endif()
+
+find_package(LibXml2 REQUIRED CONFIG)
+
 add_subdirectory(math)
+

@@ -29,22 +29,34 @@
 - Math Checks
 
 ## Build
-### vcpkg
+- CMake >= 3.21
+
+### Windows
 ```
+# vcpkg
 $ bootstrap-vcpkg.bat -disableMetrics
 $ vcpkg install libxml2:x64-windows
+# external
+$ cmake --preset windows-ext
+$ cmake --build --preset windows-ext
+# debug
+$ cmake --preset windows-x64-debug
+$ cmake --build --preset windows-x64-debug
+# test
+$ cmake --preset windows-x64-debug-test
+$ ctest --preset test-windows-x64   
 ```
-
-### CMake
-- CMake >= 3.21
+### Linux
 ```
-$ cmake --build --preset <preset_name>
-```
-
-- otherwise
-```
-$ cmake --preset <preset_name>
-$ cmake --build --preset <preset_name>
+# vcpkg
+$ bootstrap-vcpkg.bat -disableMetrics
+$ vcpkg install libxml2:x64-linux
+# external
+$ cmake --preset linux-ext
+$ cmake --build --preset linux-ext
+# debug
+$ cmake --preset linux-x64-debug
+$ cmake --build --preset linux-x64-debug
 ```
 
 ## Author
@@ -56,14 +68,3 @@ $ cmake --build --preset <preset_name>
 # 開発者向け
 ## テストについて
 テストはルールがうまく機能するかどうかをチェックするために使う
-
-## LLVM
-バージョンのタグでリポジトリを固定する
-
-    cd llvm-project
-    git fetch --tags
-    git checkout llvmorg-20.1.0
-    cd ..
-    git add llvm-project
-    git commit -m "moved llvm-project at llvmorg-20.1.0"
-    git push

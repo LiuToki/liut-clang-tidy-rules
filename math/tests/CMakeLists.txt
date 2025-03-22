@@ -13,9 +13,17 @@
 # テスト用にパイソンスクリプトをパスの通る場所に設置する(他のとこでもいいかも).
 
 # テストを登録
+if(MSVC)
+	set(MATH_DLL_PATH "${CMAKE_BINARY_DIR}/bin/Debug/math_Check_${LLVM_VERSION_MAJOR}.dll")
+else()
+	set(MATH_DLL_PATH "${CMAKE_BINARY_DIR}/bin/Debug/math_Check_${LLVM_VERSION_MAJOR}.so")
+endif()
+
 add_test(
 	NAME MathTest
-	COMMAND python ${CMAKE_SOURCE_DIR}/test/check_clang_tidy.py ${CMAKE_SOURCE_DIR}/test/math.cpp readability-awesome-function-names tmp --
-	-load=${CMAKE_BINARY_DIR}/libMath_${LLVM_VERSION_MAJOR}.so
+	COMMAND python
+		${CMAKE_SOURCE_DIR}/tools/check_clang_tidy.py ${CMAKE_SOURCE_DIR}/math/tests/math_test.cpp liut_math-unqualified-math-functions tmp --
+		-load=${MATH_DLL_PATH}
+		-config={"Checks": "'-*,liut_math-unqualified-math-functions'"}
 	WORKING_DIRECTORY ..
 )

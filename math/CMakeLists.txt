@@ -125,6 +125,5 @@ endif()
 
 # テストオプションが有効な場合、テストを追加
 if(BUILD_TESTING)
-    enable_testing()
     add_subdirectory(tests)
 endif()

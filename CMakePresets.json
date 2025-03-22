@@ -7,6 +7,59 @@
 	},
 	"configurePresets": [
 		{
+			"name": "windows-ext",
+			"displayName": "External Configure",
+			"description": "Configure external dependency",
+			"generator": "Visual Studio 17 2022",
+			"binaryDir": "${sourceDir}/build",
+			"architecture": {
+				"value": "x64",
+				"strategy": "external"
+			},
+			"cacheVariables": {
+				"BUILD_EXT": "ON"
+			},
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Windows"
+			}
+		},
+		{
+			"name": "windows-ext-build",
+			"displayName": "(NEVER USE THIS DIRECTLY!)External Build",
+			"description": "Build external dependency",
+			"inherits": "windows-ext",
+			"binaryDir": "${sourceDir}/build/ext"
+		},
+		{
+			"name": "linux-ext",
+			"displayName": "External Configure",
+			"description": "Configure and build external dependency",
+			"inherits": "base",
+			"generator": "Ninja",
+			"binaryDir": "${sourceDir}/build",
+			"architecture": {
+				"value": "x64",
+				"strategy": "external"
+			},
+			"cacheVariables": {
+				"BUILD_EXT": "ON"
+			},
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Linux"
+			}
+		},
+		{
+			"name": "linux-ext-build",
+			"displayName": "(NEVER USE THIS DIRECTLY!)External Build",
+			"description": "Build external dependency",
+			"inherits": "linux-ext",
+			"binaryDir": "${sourceDir}/build/ext"
+		},
+		{
 			"name": "base",
 			"description": "The base settings",
 			"hidden": true,
@@ -129,6 +182,12 @@
 			}
 		},
 		{
+			"name": "windows-ext",
+			"inherits": "build-windows-base",
+			"displayName": "Build External",
+			"configurePreset": "windows-ext-build"
+		},
+		{
 			"name": "windows-x64-debug",
 			"inherits": "build-windows-base",
 			"displayName": "Debug",
@@ -158,6 +217,12 @@
 			  "lhs": "${hostSystemName}",
 			  "rhs": "Linux"
 			}
+		},
+		{
+			"name": "linux-ext",
+			"inherits": "build-linux-base",
+			"displayName": "Build External",
+			"configurePreset": "linux-ext"
 		},
 		{
 			"name": "linux-x64-debug",
