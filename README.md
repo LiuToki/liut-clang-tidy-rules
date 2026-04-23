@@ -29,14 +29,13 @@
 - Math Checks
 
 ## Build
-- CMake >= 3.21
+- CMake >= 3.24
 
 ### Windows
 ```
-# vcpkg
-$ bootstrap-vcpkg.bat -disableMetrics
-$ vcpkg install libxml2:x64-windows
-# external
+# vcpkg（初回のみ・libxml2はvcpkg.jsonから自動インストール）
+$ libs/vcpkg/bootstrap-vcpkg.bat -disableMetrics
+# external（LLVMのビルド・初回のみ・時間がかかります）
 $ cmake --preset windows-ext
 $ cmake --build --preset windows-ext
 # debug
@@ -44,19 +43,23 @@ $ cmake --preset windows-x64-debug
 $ cmake --build --preset windows-x64-debug
 # test
 $ cmake --preset windows-x64-debug-test
-$ ctest --preset test-windows-x64   
+$ cmake --build --preset windows-x64-debug-test
+$ ctest --preset test-windows-x64
 ```
 ### Linux
 ```
-# vcpkg
-$ bootstrap-vcpkg.bat -disableMetrics
-$ vcpkg install libxml2:x64-linux
-# external
+# vcpkg（初回のみ・libxml2はvcpkg.jsonから自動インストール）
+$ libs/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+# external（LLVMのビルド・初回のみ・時間がかかります）
 $ cmake --preset linux-ext
 $ cmake --build --preset linux-ext
 # debug
 $ cmake --preset linux-x64-debug
 $ cmake --build --preset linux-x64-debug
+# test
+$ cmake --preset linux-x64-debug-test
+$ cmake --build --preset linux-x64-debug-test
+$ ctest --preset test-linux-x64
 ```
 
 ## Author

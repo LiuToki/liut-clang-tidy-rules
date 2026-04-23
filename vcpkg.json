@@ -1,0 +1,7 @@
+{
+  "name": "liut-clang-tidy-rules",
+  "version": "0.1.0",
+  "dependencies": [
+    "libxml2"
+  ]
+}
