@@ -10,7 +10,7 @@
 			"name": "windows-ext",
 			"displayName": "External Configure",
 			"description": "Configure external dependency",
-			"generator": "Visual Studio 17 2022",
+			"generator": "Visual Studio 18 2026",
 			"binaryDir": "${sourceDir}/build",
 			"architecture": {
 				"value": "x64",
@@ -63,7 +63,7 @@
 			"name": "base",
 			"description": "The base settings",
 			"hidden": true,
-			"generator": "Visual Studio 17 2022",
+			"generator": "Visual Studio 18 2026",
 			"binaryDir": "${sourceDir}/build/${presetName}",
 			"cacheVariables": {
 				"CMAKE_TOOLCHAIN_FILE": {
